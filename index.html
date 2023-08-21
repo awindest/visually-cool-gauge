@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--                                  
+╭━━╮╱╱╱╱╭╮╱╱╱╱╱╭╮╱╭╮╱╱╱╱╱╭╮            ━╮ ╭━
+╰┫┣╯╱╱╱╱┃┃╱╱╱╱╭╯╰╮┃┃╱╱╱╱╱┃┃             | |
+╱┃┃╭━╮╭━╯┣━━┳━┻╮╭╯┃┃╱╱╭━━┫╰━┳━━╮       ╱ o \
+╱┃┃┃╭╮┫╭╮┃┃━┫━━┫┃╱┃┃╱╭┫╭╮┃╭╮┃━━┫      ╱_____\
+╭┫┣┫┃┃┃╰╯┃┃━╋━━┃╰╮┃╰━╯┃╭╮┃╰╯┣━━┃     ╱    o  \  
+╰━━┻╯╰┻━━┻━━┻━━┻━╯╰━━━┻╯╰┻━━┻━━╯    (__o______)  
+
+Yet another science experiment from Indest Labs.
+
+Recommend viewing in Visual Source Code.
+
+A cool gauge to provide context. Refactored from Amelia Wattenberger's React component via Twitter:
+https://twitter.com/wattenberger/status/1194272991447793666
+
+See her excellent post via the above tweet: 
+https://wattenberger.com/blog/gauge
+
+-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Visually Cool Gauge</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+  <meta name="description" content="A cool gauge a la Amelia Wattenberger's excellent post.">
+  <!-- https://wattenberger.com/blog/gauge -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    @import url('https://rsms.me/inter/inter.css');
+
+    html {
+      font-family: 'Inter', sans-serif;
+      font-feature-settings: 'zero', 'tnum';
+      /* 'zero' => adds a slash to a zero to distinguish from an 'O' */
+      /* 'tnum' => change variable-spaced numbers to mono-spaced for formatting */
+    }
+
+    /* A quick note for those of you who, like me, always forget the one crazy rule of positioning DOM elements: elements set to position:relative need to have a parent set to position:relative or position:absolute */
+    .wrapper {
+      display: inline-block;
+      position: relative;
+      vertical-align: top;
+      overflow: hidden;
+    }
+
+    .svg-content {
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <script src="js/Gauge.js"></script>
+  <center>
+    <input id="slidy" style="margin-left: 3.5em;" type="range" min="0" max="100" value="50">
+
+    <div id="wrapper"></div>
+
+  </center>
+
+  <script>
+
+    const gauge = new Gauge("#wrapper")
+    const slider = d3.select("#slidy")
+      .on('input', function () {
+        gauge.updateVis(this.value)
+      })
+
+    gauge.updateVis(slider.node().value) // initialize gauge
+
+  </script>
+
+</body>
+
+</html>
